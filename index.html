@@ -11,23 +11,30 @@
     <script src="https://files.bpcontent.cloud/2024/12/08/13/20241208135331-7SYNWV30.js"></script>
 
     <script>
-    window.addEventListener('message', (event) => {
-        console.log("Message received from Webchat:", event.data);
+  window.botpress.on('*', (event) => {
+    console.log(`Event received: ${event.type}`, event);
+  });
 
-        if (event.data && event.data.eventName === 'toggle') {
-            const state = event.data.isOpen ? 'open' : 'closed';
-            console.log(`Webchat state changed: ${state}`);
-            
-            // Notify Electron app
-            try {
-                window.parent.postMessage({ eventName: 'resize', state }, '*');
-                console.log("Message sent to Electron:", { eventName: 'resize', state });
-            } catch (err) {
-                console.error("Error sending message to Electron:", err);
-            }
-        }
-    });
+  window.botpress.on('error', (error) => {
+    console.error(`Error occurred:`, error);
+  });
+
+  window.botpress.on('webchat:ready', () => {
+    console.log('Webchat is ready');
+  });
+
+  window.botpress.on('webchat:opened', () => {
+    console.log('Webchat has been opened');
+  });
+
+  window.botpress.on('message', (message) => {
+    console.log(`Message received:`, message);
+  });
 </script>
+
+    <button onclick="botpress.open()">Open Webchat</button>
+<button onclick="botpress.close()">Close Webchat</button>
+<button onclick="botpress.toggle()">Toggle Webchat</button>
     
 </body>
 </html>
