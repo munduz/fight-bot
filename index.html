@@ -24,11 +24,11 @@
             window.electronAPI.resizeWindow(); // Trigger the resize
         };
 
-        // Override the close function to minimize the Electron window
+        // Override the close function to resize the Electron window
         const originalClose = botpress.close;
         botpress.close = function() {
-            originalClose(); // Call the original close
-            window.electronAPI.resizeWindow(); // Trigger the resize to minimize
+            originalClose(); // Close the webchat
+            window.electronAPI.resizeWindow(); // Minimize the Electron window
         };
     </script>
 
