@@ -6,26 +6,33 @@
     <title>Bot Test</title>
 </head>
 <body>
-    <!-- Include Botpress Webchat Embed -->
+    <!-- Botpress Webchat Embed -->
     <script src="https://cdn.botpress.cloud/webchat/v2.2/inject.js"></script>
     <script src="https://files.bpcontent.cloud/2024/12/08/13/20241208135331-7SYNWV30.js"></script>
 
     <script>
-        // Ensure Botpress has been loaded before trying to add listeners
+        // Listen for the Botpress toggle action and log the visibility
         window.onload = function() {
+            // Check if botpress object is available
             if (window.botpress) {
-                // Listen to the visibility changes (toggle) of the webchat
-                window.botpress.toggle('webchatVisibility', (visibility) => {
-                    console.log('Webchat visibility changed:', visibility); // Print the visibility status to the console
+                // Listen for visibility changes (toggle between visible and hidden states)
+                window.botpress.on('webchatVisibility', (visibility) => {
+                    // Log visibility status to the console
+                    if (visibility === 'visible') {
+                        console.log("Webchat is now visible!");
+                    } else if (visibility === 'hidden') {
+                        console.log("Webchat is now hidden!");
+                    }
                 });
             } else {
-                console.error('Botpress is not loaded!');
+                console.error('Botpress is not available!');
             }
-        }
+        };
     </script>
 
     <button onclick="botpress.open()">Open Webchat</button>
     <button onclick="botpress.close()">Close Webchat</button>
     <button onclick="botpress.toggle()">Toggle Webchat</button>
+
 </body>
 </html>
