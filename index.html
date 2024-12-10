@@ -16,14 +16,19 @@
     <button onclick="botpress.close()">Close Webchat</button>
     <button onclick="botpress.toggle()">Toggle Webchat</button>
 
-
-
     <script>
-        // Override the toggle function
-        const originalToggle = botpress.toggle;
-        botpress.toggle = function() {
-            originalToggle();  // Call the original toggle function
-            window.electronAPI.resizeWindow();  // Trigger the resize when toggle is called
+        // Override the open and close functions
+        const originalOpen = botpress.open;
+        const originalClose = botpress.close;
+
+        botpress.open = function() {
+            originalOpen(); // Call the original botpress.open
+            window.electronAPI.resizeWindow(true); // Trigger resize to full size
+        };
+
+        botpress.close = function() {
+            originalClose(); // Call the original botpress.close
+            window.electronAPI.resizeWindow(false); // Trigger resize to minimized size
         };
     </script>
 
