@@ -19,10 +19,16 @@
 
 
     <script>
-        function resizeWindow() {
-            // This will send a message to Electron to resize the window
-            window.electronAPI.resizeWindow();
-        }
+        // Listen for the state change of the Botpress Webchat
+        window.addEventListener('bpWebChat:onOpened', () => {
+            console.log('Webchat opened');
+            window.electronAPI.resizeWindow();  // Send IPC to resize window when webchat opens
+        });
+
+        window.addEventListener('bpWebChat:onClosed', () => {
+            console.log('Webchat closed');
+            window.electronAPI.resizeWindow();  // Send IPC to resize window when webchat closes
+        });
     </script>
 
 </body>
