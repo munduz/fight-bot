@@ -23,6 +23,13 @@
             originalToggle(); // Call the original toggle
             window.electronAPI.resizeWindow(); // Trigger the resize
         };
+
+        // Override the close function to minimize the Electron window
+        const originalClose = botpress.close;
+        botpress.close = function() {
+            originalClose(); // Call the original close
+            window.electronAPI.resizeWindow(); // Trigger the resize to minimize
+        };
     </script>
 
 </body>
