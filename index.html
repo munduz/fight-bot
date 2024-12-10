@@ -10,17 +10,12 @@
     <script src="https://cdn.botpress.cloud/webchat/v2.2/inject.js"></script>
     <script src="https://files.bpcontent.cloud/2024/12/08/13/20241208135331-7SYNWV30.js"></script>
 
-    <script>
-        // Listen for visibility changes (toggle events)
+   <script>
+        // Listen to visibility event changes from the Botpress webchat
         window.botpress.on('webchatVisibility', (visibility) => {
-            console.log('Webchat visibility changed:', visibility);
-            
-            // Send an event to Electron when the webchat is toggled (opened/closed)
-            if (visibility === 'visible') {
-                window.electronAPI.webchatVisible();
-            } else {
-                window.electronAPI.webchatHidden();
-            }
+            console.log(`Webchat visibility: ${visibility}`);
+            // Send visibility status to the main process (Electron)
+            window.electronAPI.sendVisibilityStatus(visibility);
         });
     </script>
 
