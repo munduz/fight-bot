@@ -15,7 +15,7 @@
         window.onload = function() {
             if (window.botpress) {
                 // Listen to the visibility changes (toggle) of the webchat
-                window.botpress.on('webchatVisibility', (visibility) => {
+                window.botpress.toggle('webchatVisibility', (visibility) => {
                     console.log('Webchat visibility changed:', visibility); // Print the visibility status to the console
                 });
             } else {
