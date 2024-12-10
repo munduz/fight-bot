@@ -17,12 +17,19 @@
     <button onclick="botpress.toggle()">Toggle Webchat</button>
 
     <script>
-        // Override the toggle function to also resize the Electron window
-        const originalToggle = botpress.toggle;
-        botpress.toggle = function() {
-            originalToggle(); // Call the original toggle
-            window.electronAPI.resizeWindow(); // Trigger the resize
-        };
+        // Listen for both open and close events from Botpress
+        window.addEventListener('bpWebChat:onOpened', () => {
+            window.electronAPI.resizeWindow();  // Maximize window
+        });
+        
+        window.addEventListener('bpWebChat:onClosed', () => {
+            window.electronAPI.resizeWindow();  // Minimize window
+        });
+
+        function resizeWindow() {
+            // This will send a message to Electron to resize the window
+            window.electronAPI.resizeWindow();
+        }
     </script>
 
 </body>
