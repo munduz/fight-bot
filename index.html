@@ -19,16 +19,12 @@
 
 
     <script>
-        // Listen for the state change of the Botpress Webchat
-        window.addEventListener('bpWebChat:onOpened', () => {
-            console.log('Webchat opened');
-            window.electronAPI.resizeWindow();  // Send IPC to resize window when webchat opens
-        });
-
-        window.addEventListener('bpWebChat:onClosed', () => {
-            console.log('Webchat closed');
-            window.electronAPI.resizeWindow();  // Send IPC to resize window when webchat closes
-        });
+        // Override the toggle function
+        const originalToggle = botpress.toggle;
+        botpress.toggle = function() {
+            originalToggle();  // Call the original toggle function
+            window.electronAPI.resizeWindow();  // Trigger the resize when toggle is called
+        };
     </script>
 
 </body>
