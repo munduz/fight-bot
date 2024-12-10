@@ -7,10 +7,27 @@
 </head>
 <body>
     <!-- Paste your Botpress Webchat bot code here -->
-
-    
     <script src="https://cdn.botpress.cloud/webchat/v2.2/inject.js"></script>
     <script src="https://files.bpcontent.cloud/2024/12/08/13/20241208135331-7SYNWV30.js"></script>
+
+    <script>
+    window.addEventListener('message', (event) => {
+        console.log("Message received from Webchat:", event.data);
+
+        if (event.data && event.data.eventName === 'toggle') {
+            const state = event.data.isOpen ? 'open' : 'closed';
+            console.log(`Webchat state changed: ${state}`);
+            
+            // Notify Electron app
+            try {
+                window.parent.postMessage({ eventName: 'resize', state }, '*');
+                console.log("Message sent to Electron:", { eventName: 'resize', state });
+            } catch (err) {
+                console.error("Error sending message to Electron:", err);
+            }
+        }
+    });
+</script>
     
 </body>
 </html>
