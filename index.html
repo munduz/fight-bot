@@ -18,10 +18,10 @@
 
     <script>
         // Override the open and close functions
-        const originalOpen = botpress.open;
+        const originalOpen = botpress.toggle;
         const originalClose = botpress.close;
 
-        botpress.open = function() {
+        botpress.toggle = function() {
             originalOpen(); // Call the original botpress.open
             window.electronAPI.resizeWindow(true); // Trigger resize to full size
         };
