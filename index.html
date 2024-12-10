@@ -11,16 +11,21 @@
     <script src="https://files.bpcontent.cloud/2024/12/08/13/20241208135331-7SYNWV30.js"></script>
     
    <script>
-        let isWebchatVisible = false;
+        // Listen for the Botpress toggle action and notify the main process
+        let webchatVisible = false;
 
-        function toggleWebchat() {
-            // Toggle visibility of the Botpress webchat
-            botpress.toggle();
+        // When the toggle is called (Botpress button clicked), resize the window
+        window.botpress.on('webchatVisibility', (visibility) => {
+            // If visibility is 'visible', it's in chat-mode
+            if (visibility === 'visible') {
+                webchatVisible = true;
+            } else {
+                webchatVisible = false;
+            }
 
-            // Check the current visibility and send it to the main process
-            isWebchatVisible = !isWebchatVisible; // Toggle the state
-            window.electronAPI.sendVisibilityStatus(isWebchatVisible ? 'visible' : 'hidden');
-        }
+            // Send visibility status to the Electron main process
+            window.electronAPI.sendVisibilityStatus(webchatVisible);
+        });
     </script>
 
 <button onclick="botpress.open()">Open Webchat</button>
