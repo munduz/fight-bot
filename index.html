@@ -19,8 +19,10 @@
             // If visibility is 'visible', it's in chat-mode
             if (visibility === 'visible') {
                 webchatVisible = true;
+                console.log("Webchat visible!");
             } else {
                 webchatVisible = false;
+                console.log("Webchat not visible!");
             }
 
             // Send visibility status to the Electron main process
