@@ -9,14 +9,18 @@
     <!-- Paste your Botpress Webchat bot code here -->
     <script src="https://cdn.botpress.cloud/webchat/v2.2/inject.js"></script>
     <script src="https://files.bpcontent.cloud/2024/12/08/13/20241208135331-7SYNWV30.js"></script>
-
+    
    <script>
-        // Listen to visibility event changes from the Botpress webchat
-        window.botpress.on('webchatVisibility', (visibility) => {
-            console.log(`Webchat visibility: ${visibility}`);
-            // Send visibility status to the main process (Electron)
-            window.electronAPI.sendVisibilityStatus(visibility);
-        });
+        let isWebchatVisible = false;
+
+        function toggleWebchat() {
+            // Toggle visibility of the Botpress webchat
+            botpress.toggle();
+
+            // Check the current visibility and send it to the main process
+            isWebchatVisible = !isWebchatVisible; // Toggle the state
+            window.electronAPI.sendVisibilityStatus(isWebchatVisible ? 'visible' : 'hidden');
+        }
     </script>
 
 <button onclick="botpress.open()">Open Webchat</button>
