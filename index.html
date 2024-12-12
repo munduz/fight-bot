@@ -18,6 +18,13 @@
             window.electronAPI.resizeWindow(); // Trigger the resize
         };
 
+        // Override the toggle function to also resize the Electron window
+        const originalToggle = botpress.open;
+        botpress.open = function() {
+            originalToggle(); // Call the original toggle
+            window.electronAPI.resizeWindow(); // Trigger the resize
+        };
+
         // Override the close function to resize the Electron window
         const originalClose = botpress.close;
         botpress.close = function() {
