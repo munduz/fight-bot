@@ -20,9 +20,9 @@
 
         
         // Override the toggle function to also resize the Electron window
-        const originalToggle = botpress.open;
+        const originalOpen = botpress.open;
         botpress.open = function() {
-            originalToggle(); // Call the original toggle
+            originalOpen(); // Call the original toggle
             window.electronAPI.resizeWindow(); // Trigger the resize
         };
 
